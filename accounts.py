@@ -40,12 +40,12 @@ class AccountRollup:
 class JournalEntryLeg:
     def __init__(self, account: Account, amount: float, amount_type: AmountType):
         self.account = account
-        self._amount = amount
+        self.amount = abs(amount)
         self.amount_type = amount_type
 
     @property
     def signed_amount(self):
-        return leg.amount if leg.amount_type == AmountType.Debit else -leg.amount
+        return self.amount if self.amount_type == AmountType.Debit else -self.amount
 
     def __repr__(self):
         return f"{self.account} ({self.signed_amount} {self.amount_type})"
